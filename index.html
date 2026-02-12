@@ -336,7 +336,7 @@
         /* SCROLL INDICATOR */
         .scroll-indicator {
             position: absolute;
-            bottom: 100px;
+            bottom: 150px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 10;
@@ -354,15 +354,17 @@
             font-weight: 300;
             color: rgba(255, 255, 255, 0.45);
         }
+        .scroll-indicator .chevron-wrap {
+            animation: scrollBounce 2.2s ease-in-out infinite;
+        }
         .scroll-indicator .chevron {
             width: 18px;
             height: 18px;
             border-right: 1.5px solid rgba(255, 255, 255, 0.35);
             border-bottom: 1.5px solid rgba(255, 255, 255, 0.35);
             transform: rotate(45deg);
-            animation: scrollBounce 2.2s ease-in-out infinite;
         }
-        @keyframes scrollBounce { 0%, 100% { transform: rotate(45deg) translateY(0); opacity: 1; } 50% { transform: rotate(45deg) translateY(8px); opacity: 0.3; } }
+        @keyframes scrollBounce { 0%, 100% { transform: translateY(0); opacity: 1; } 50% { transform: translateY(8px); opacity: 0.3; } }
 
         /* STATS BAR */
         .hero-stats {
@@ -908,7 +910,7 @@
     </div>
     <div class="scroll-indicator" id="scrollIndicator">
         <span>Explore</span>
-        <div class="chevron"></div>
+        <div class="chevron-wrap"><div class="chevron"></div></div>
     </div>
     <div class="hero-stats">
         <div class="stat-item"><div class="stat-value">4</div><div class="stat-label">Bedrooms</div></div>
