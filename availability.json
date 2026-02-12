@@ -1,0 +1,32 @@
+{
+  "last_updated": "2026-02-08T00:00:00",
+  "season": {
+    "title": "Ski Season Availability",
+    "subtitle": "Exclusive Last-Minute Openings",
+    "theme": "ski"
+  },
+  "availability": [
+    {
+      "title": "Early March",
+      "dates": "March 1–14, 2026",
+      "description": "Prime ski season with exceptional powder conditions and mountain views",
+      "nights": 13
+    },
+    {
+      "title": "Late March",
+      "dates": "March 22–28, 2026",
+      "description": "Spring skiing with sunny days and perfect outdoor hot tub weather",
+      "nights": 7
+    },
+    {
+      "title": "April Openings",
+      "dates": "April 4–30, 2026",
+      "description": "Extended season skiing plus early access to summer mountain activities",
+      "nights": 26
+    }
+  ],
+  "meta": {
+    "listing_id": "1286116063774289661",
+    "airbnb_url": "https://www.airbnb.com/rooms/1286116063774289661"
+  }
+}

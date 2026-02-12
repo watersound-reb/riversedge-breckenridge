@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rivers Edge Breckenridge | Luxury Mountain Chalet on the Blue River</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="preload" as="image" href="External%20Snow1.jpeg">
+    <link rel="preload" as="image" href="Living1.jpg">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        :root {
+            --primary-gold: #D4AF37;
+            --dark-navy: #1B2B3A;
+            --charcoal: #2C3E50;
+            --soft-gray: #F8F9FA;
+            --light-gold: #F4EDE4;
+            --accent-blue: #4A5F7A;
+            --section-padding: 120px;
+            --container-max-width: 1400px;
+        }
+        body {
+            font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.8;
+            color: var(--charcoal);
+            font-weight: 300;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        /* NAVIGATION */
+        .site-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .site-nav.scrolled {
+            background: rgba(15, 20, 25, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 1rem 3rem;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: white;
+            letter-spacing: 3px;
+            text-decoration: none;
+            font-weight: 400;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: fadeIn 0.6s ease 0.1s forwards;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+        .nav-links li {
+            opacity: 0;
+            animation: fadeIn 0.6s ease forwards;
+        }
+        .nav-links li:nth-child(1) { animation-delay: 0.15s; }
+        .nav-links li:nth-child(2) { animation-delay: 0.2s; }
+        .nav-links li:nth-child(3) { animation-delay: 0.25s; }
+        .nav-links li:nth-child(4) { animation-delay: 0.3s; }
+        .nav-links li:nth-child(5) { animation-delay: 0.35s; }
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.75);
+            text-decoration: none;
+            font-size: 0.75rem;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            font-weight: 400;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--primary-gold);
+            transition: width 0.3s ease;
+        }
+        .nav-links a:hover {
+            color: white;
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 5px;
+        }
+        .nav-toggle span {
+            width: 24px;
+            height: 1.5px;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        /* HERO */
+        .hero {
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+        .hero-slideshow {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+        }
+        .hero-slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+            will-change: opacity;
+        }
+        .hero-slide.active {
+            opacity: 1;
+        }
+        .hero-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            will-change: transform;
+        }
+        /* Ken Burns animations are applied via JS to prevent snap-back on fade-out */
+        @keyframes kb1 { from { transform: scale(1); } to { transform: scale(1.12) translate(-1.5%, -1%); } }
+        @keyframes kb2 { from { transform: scale(1.05) translate(1%, 0); } to { transform: scale(1.15) translate(-1%, -1.5%); } }
+        @keyframes kb3 { from { transform: scale(1) translate(-1%, 0); } to { transform: scale(1.1) translate(1.5%, -1%); } }
+        @keyframes kb4 { from { transform: scale(1.08) translate(0, 1%); } to { transform: scale(1.15) translate(-1.5%, -0.5%); } }
+        @keyframes kb5 { from { transform: scale(1) translate(1%, 1%); } to { transform: scale(1.12) translate(-0.5%, -1.5%); } }
+        .hero-vignette {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            background:
+                radial-gradient(ellipse at center, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.6) 100%),
+                linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%),
+                linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, transparent 35%);
+            pointer-events: none;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 5;
+            max-width: 900px;
+            padding: 0 2rem;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+        }
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 8vw, 6.5rem);
+            font-weight: 400;
+            letter-spacing: 2px;
+            line-height: 1.1;
+            margin-bottom: 0.1rem;
+        }
+        .hero-title .word {
+            display: inline-block;
+            margin-right: 0.25em;
+        }
+        .hero-title .letter {
+            display: inline-block;
+            opacity: 0;
+            filter: blur(8px);
+            transform: translateY(8px);
+            animation: letterReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes letterReveal {
+            to { opacity: 1; filter: blur(0); transform: translateY(0); }
+        }
+        .hero-location {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1rem, 2.5vw, 1.6rem);
+            font-weight: 400;
+            letter-spacing: 10px;
+            color: rgba(255, 255, 255, 0.75);
+            margin-bottom: 0.6rem;
+            opacity: 0;
+            filter: blur(6px);
+            transform: translateY(5px);
+            animation: subtleReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.65s forwards;
+        }
+        @keyframes subtleReveal { to { opacity: 1; filter: blur(0); transform: translateY(0); } }
+        .hero-line {
+            width: 0;
+            height: 2px;
+            background: var(--primary-gold);
+            margin: 0 auto 0.8rem;
+            animation: lineExpand 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.9s forwards;
+        }
+        @keyframes lineExpand { to { width: 100px; } }
+        .hero-subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 300;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.9);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUpIn 0.7s ease 1.1s forwards;
+            margin-bottom: 1.2rem;
+        }
+        .hero-cta {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUpIn 0.7s ease 1.35s forwards;
+            margin-bottom: 1.2rem;
+        }
+        .hero-testimonial-wrap {
+            height: 220px;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            animation: fadeIn 0.8s ease 1.6s forwards;
+        }
+        .hero-testimonial-item {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .hero-testimonial-item.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .hero-testimonial-item .quote {
+            font-style: italic;
+            font-size: 0.95rem;
+            font-weight: 400;
+            line-height: 1.6;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto 0.5rem;
+            text-shadow: 0 1px 12px rgba(0,0,0,0.5);
+        }
+        .hero-testimonial-item .author {
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--primary-gold);
+            font-weight: 500;
+            text-shadow: 0 1px 8px rgba(0,0,0,0.4);
+            margin-bottom: 0.5rem;
+        }
+        .hero-testimonial-item .stars {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin: 0;
+            filter: drop-shadow(0 1px 8px rgba(0,0,0,0.4));
+        }
+        .hero-testimonial-item .stars svg {
+            width: 22px;
+            height: 22px;
+            fill: var(--primary-gold);
+        }
+
+        /* SLIDE PROGRESS */
+        .slide-progress {
+            position: absolute;
+            right: 3rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            opacity: 0;
+            animation: fadeIn 0.8s ease 2s forwards;
+        }
+        .slide-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.25);
+            cursor: pointer;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 0;
+        }
+        .slide-dot.active {
+            background: var(--primary-gold);
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.5);
+            transform: scale(1.2);
+        }
+        .slide-dot:hover {
+            background: rgba(255, 255, 255, 0.5);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* SCROLL INDICATOR */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.6rem;
+            opacity: 0;
+            animation: fadeIn 0.8s ease 2.2s forwards;
+        }
+        .scroll-indicator span {
+            font-size: 0.6rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.45);
+        }
+        .scroll-indicator .chevron {
+            width: 18px;
+            height: 18px;
+            border-right: 1.5px solid rgba(255, 255, 255, 0.35);
+            border-bottom: 1.5px solid rgba(255, 255, 255, 0.35);
+            transform: rotate(45deg);
+            animation: scrollBounce 2.2s ease-in-out infinite;
+        }
+        @keyframes scrollBounce { 0%, 100% { transform: rotate(45deg) translateY(0); opacity: 1; } 50% { transform: rotate(45deg) translateY(8px); opacity: 0.3; } }
+
+        /* STATS BAR */
+        .hero-stats {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            background: rgba(15, 20, 25, 0.55);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.07);
+            opacity: 0;
+            transform: translateY(100%);
+            animation: slideUp 0.7s cubic-bezier(0.4, 0, 0.2, 1) 1.8s forwards;
+        }
+        @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
+        .stat-item {
+            padding: 1.2rem 3rem;
+            text-align: center;
+            border-right: 1px solid rgba(255, 255, 255, 0.07);
+            color: white;
+        }
+        .stat-item:last-child { border-right: none; }
+        .stat-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 400;
+            color: var(--primary-gold);
+            margin-bottom: 0.15rem;
+        }
+        .stat-label {
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 300;
+            opacity: 0.6;
+        }
+
+        /* BUTTONS */
+        .btn {
+            padding: 16px 40px;
+            font-size: 0.85rem;
+            text-decoration: none;
+            border: 1.5px solid rgba(255, 255, 255, 0.6);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: transparent;
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .btn-primary:hover, .btn-secondary:hover {
+            background: var(--primary-gold);
+            border-color: var(--primary-gold);
+            color: var(--dark-navy);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        /* AVAILABILITY */
+        .availability-banner {
+            background: linear-gradient(135deg, var(--dark-navy) 0%, var(--accent-blue) 100%);
+            color: white;
+            padding: 100px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .availability-banner h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        .availability-banner .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+        .date-boxes {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: var(--container-max-width);
+            margin: 3rem auto 0;
+        }
+        .date-box {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            padding: 3rem 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 8px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            min-height: 320px;
+        }
+        .date-box:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-8px);
+            border-color: var(--primary-gold);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+        }
+        .date-box h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            color: var(--primary-gold);
+        }
+        .date-box .dates {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+        .date-box .description {
+            font-size: 0.95rem;
+            margin-bottom: auto;
+            opacity: 0.85;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+        .discount-badge {
+            display: inline-block;
+            background: var(--primary-gold);
+            color: var(--dark-navy);
+            padding: 10px 24px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 1.5rem;
+            align-self: center;
+        }
+
+        /* SECTIONS */
+        .container {
+            max-width: var(--container-max-width);
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+        section {
+            padding: var(--section-padding) 40px;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        .section-header h2 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark-navy);
+            font-weight: 400;
+            letter-spacing: 2px;
+        }
+        .section-header .divider {
+            width: 60px;
+            height: 1px;
+            background: var(--primary-gold);
+            margin: 1.5rem auto;
+        }
+        .section-header p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        /* ABOUT */
+        .about {
+            background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.98)), url('River.jpeg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+            margin-top: 3rem;
+        }
+        .about-text h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark-navy);
+            font-weight: 400;
+        }
+        .about-text p {
+            font-size: 1.05rem;
+            margin-bottom: 1.5rem;
+            color: #555;
+            line-height: 1.9;
+            font-weight: 300;
+        }
+        .property-highlights {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 2.5rem;
+        }
+        .highlight-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.95rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+        .highlight-item::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            background: var(--primary-gold);
+            flex-shrink: 0;
+        }
+        .about-image {
+            width: 100%;
+            height: 550px;
+            object-fit: cover;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+            border-radius: 4px;
+            transition: all 0.4s ease;
+        }
+        .about-image:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 40px 100px rgba(0,0,0,0.3);
+        }
+
+        /* GALLERY */
+        .gallery {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            position: relative;
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            margin-top: 3rem;
+        }
+        .gallery-item {
+            overflow: hidden;
+            position: relative;
+            height: 400px;
+            background: #000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transition: all 0.4s ease;
+        }
+        .gallery-item:hover {
+            box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+            transform: translateY(-5px);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.6s ease;
+            opacity: 0.95;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.08);
+            opacity: 1;
+        }
+
+        /* AMENITIES */
+        .amenities {
+            background: linear-gradient(to bottom, #ffffff 0%, #f8f9fa 100%);
+            position: relative;
+        }
+        .amenities-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+        .amenity-card {
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transition: all 0.4s ease;
+        }
+        .amenity-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+        .amenity-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+            color: var(--dark-navy);
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+        .amenity-card p {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+        .amenity-divider {
+            width: 30px;
+            height: 1px;
+            background: var(--primary-gold);
+            margin: 1rem auto;
+        }
+
+        /* CONTACT */
+        .contact {
+            background: linear-gradient(135deg, #1B2B3A 0%, #2C3E50 50%, #1B2B3A 100%);
+            color: white;
+            position: relative;
+        }
+        .contact .section-header h2 {
+            color: white;
+        }
+        .contact .section-header .divider {
+            background: var(--primary-gold);
+        }
+        .contact .section-header p {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        .contact-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .form-group {
+            margin-bottom: 2rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            font-size: 1rem;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+            font-weight: 300;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-gold);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        .form-group textarea {
+            min-height: 180px;
+            resize: vertical;
+        }
+        .submit-btn {
+            background: var(--primary-gold);
+            color: var(--dark-navy);
+            padding: 18px 50px;
+            border: 2px solid var(--primary-gold);
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .submit-btn:hover {
+            background: transparent;
+            color: var(--primary-gold);
+            transform: translateY(-3px);
+        }
+
+        /* FOOTER */
+        .footer {
+            background: linear-gradient(to bottom, #0F1419 0%, #1a1f24 100%);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 60px 40px 40px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 -5px 30px rgba(0,0,0,0.3);
+        }
+        .footer h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: white;
+            font-weight: 400;
+            letter-spacing: 2px;
+        }
+        .footer-divider {
+            width: 50px;
+            height: 1px;
+            background: var(--primary-gold);
+            margin: 1.5rem auto;
+        }
+        .social-links {
+            margin: 2rem 0;
+        }
+        .social-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+            letter-spacing: 1px;
+            font-weight: 300;
+        }
+        .social-links a:hover {
+            color: var(--primary-gold);
+        }
+        .footer-links {
+            margin: 2rem 0;
+            font-size: 0.9rem;
+        }
+        .footer-links a {
+            color: var(--primary-gold);
+            text-decoration: none;
+            margin: 0 15px;
+            transition: opacity 0.3s;
+        }
+        .footer-links a:hover {
+            opacity: 0.7;
+        }
+        .copyright {
+            margin-top: 2rem;
+            font-size: 0.85rem;
+            opacity: 0.6;
+            font-weight: 300;
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeUpIn { to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { to { opacity: 1; } }
+
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .fade-in-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .amenities-grid { grid-template-columns: repeat(2, 1fr); }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+            .date-boxes { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .about-content { grid-template-columns: 1fr; gap: 3rem; }
+            .testimonials-grid { grid-template-columns: 1fr; }
+            .amenities-grid { grid-template-columns: 1fr; }
+            .gallery-grid { grid-template-columns: 1fr; gap: 1px; }
+            .gallery-item { height: 300px; }
+            .date-boxes { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="site-nav" id="siteNav">
+    <a href="#hero" class="nav-logo">RIVERSEDGE</a>
+    <ul class="nav-links">
+        <li><a href="#about">The Property</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#amenities">Amenities</a></li>
+        <li><a href="#contact">Inquire</a></li>
+        <li><a href="https://www.airbnb.com/rooms/1286116063774289661" target="_blank">Reserve</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+</nav>
+
+<section class="hero" id="hero">
+    <div class="hero-slideshow" id="heroSlideshow">
+        <div class="hero-slide active"><img src="External%20Snow1.jpeg" alt="Mountain Chalet"></div>
+        <div class="hero-slide"><img src="Living1.jpg" alt="Luxury Living Room"></div>
+        <div class="hero-slide"><img src="REB%20Neighborhood.jpeg" alt="Neighborhood"></div>
+        <div class="hero-slide"><img src="External%20Summer3.jpeg" alt="Summer Views"></div>
+        <div class="hero-slide"><img src="Breckoverview.jpeg" alt="Mountain Views"></div>
+    </div>
+    <div class="hero-vignette"></div>
+    <div class="hero-content">
+        <h1 class="hero-title" id="heroTitle"></h1>
+        <p class="hero-location">BRECKENRIDGE</p>
+        <div class="hero-line"></div>
+        <p class="hero-subtitle">Luxury Mountain Living on the Blue River</p>
+        <div class="hero-cta">
+            <a href="https://www.airbnb.com/rooms/1286116063774289661" class="btn btn-primary" target="_blank">Reserve on Airbnb</a>
+            <a href="https://www.vrbo.com/4581092" class="btn btn-secondary" target="_blank">Reserve on VRBO</a>
+        </div>
+        <div class="hero-testimonial-wrap" id="heroTestimonials">
+            <div class="hero-testimonial-item active">
+                <p class="quote">"This is a beautiful home with modern but comfortable finishes, expansive rooms, and great views. The location is a nice balance of feeling quiet and private, but still only 2 minutes from town. The house was nicely set up with premium amenities and all instructions were clear and easy to follow. Regular snow removal and hot tub cleaning were all taken care of for us. Great place for a long-term stay, highly recommend!"</p>
+                <p class="author">Brendan — Charlotte, North Carolina</p>
+                <div class="stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+            </div>
+            <div class="hero-testimonial-item">
+                <p class="quote">"This was a great house for our family with young kids. Great location to downtown Breckenridge, but away enough to feel private."</p>
+                <p class="author">Colin — Dallas, Texas</p>
+                <div class="stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+            </div>
+            <div class="hero-testimonial-item">
+                <p class="quote">"This was a perfect rental for my family - beautiful house and close to the heart of Breckenridge while still having total privacy. Would have stayed here for the full month if we had the time. Will be going back next year!"</p>
+                <p class="author">Olivia — Austin, Texas</p>
+                <div class="stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+            </div>
+        </div>
+    </div>
+    <div class="slide-progress" id="slideProgress">
+        <button class="slide-dot active" data-index="0"></button>
+        <button class="slide-dot" data-index="1"></button>
+        <button class="slide-dot" data-index="2"></button>
+        <button class="slide-dot" data-index="3"></button>
+        <button class="slide-dot" data-index="4"></button>
+    </div>
+    <div class="scroll-indicator" id="scrollIndicator">
+        <span>Explore</span>
+        <div class="chevron"></div>
+    </div>
+    <div class="hero-stats">
+        <div class="stat-item"><div class="stat-value">4</div><div class="stat-label">Bedrooms</div></div>
+        <div class="stat-item"><div class="stat-value">4.5</div><div class="stat-label">Bathrooms</div></div>
+        <div class="stat-item"><div class="stat-value">8</div><div class="stat-label">Guests</div></div>
+        <div class="stat-item"><div class="stat-value">150+</div><div class="stat-label">Ft River Front</div></div>
+        <div class="stat-item"><div class="stat-value">5★</div><div class="stat-label">Guest Rating</div></div>
+    </div>
+</section>
+
+<section class="availability-banner">
+    <div class="container">
+        <h2 id="season-title">Ski Season Availability</h2>
+        <p class="subtitle" id="season-subtitle">Exclusive Last-Minute Openings</p>
+        <div class="date-boxes" id="date-boxes"></div>
+        <div style="margin-top: 3rem;">
+            <a href="https://www.airbnb.com/rooms/1286116063774289661" class="btn btn-primary">Reserve Your Dates</a>
+        </div>
+    </div>
+</section>
+
+<section class="about" id="about">
+    <div class="container">
+        <div class="section-header fade-in-section">
+            <h2>Your In-Town Private Mountain Sanctuary</h2>
+            <div class="divider"></div>
+            <p>Discover refined mountain living at Rivers Edge, where luxury meets serenity.</p>
+        </div>
+        <div class="about-content fade-in-section">
+            <div class="about-text">
+                <h3>Unparalleled Location & Design</h3>
+                <p>Nestled on the tranquil Blue River, this new construction mountain chalet seamlessly blends contemporary luxury with Colorado's natural beauty. Situated only two minutes from historic Main Street, the property offers an enviable balance of peaceful seclusion and convenient access to Breckenridge's premier attractions.</p>
+                <p>Whether you're drawn to world-class skiing, summer alpine adventures, or simply seeking a refined mountain retreat, this residence provides the ideal sanctuary for discerning travelers.</p>
+                <div class="property-highlights">
+                    <div class="highlight-item">Four Spacious Bedrooms</div>
+                    <div class="highlight-item">Four & Half Bathrooms</div>
+                    <div class="highlight-item">Private Hot Tub</div>
+                    <div class="highlight-item">Accommodates Eight Guests</div>
+                    <div class="highlight-item">Walk to Ski Resort</div>
+                    <div class="highlight-item">Minutes to Main Street</div>
+                    <div class="highlight-item">Seamless Self Check-In</div>
+                    <div class="highlight-item">Five-Star Guest Reviews</div>
+                </div>
+            </div>
+            <div><img src="Hottub2.jpg" alt="Hot Tub" class="about-image"></div>
+        </div>
+    </div>
+</section>
+
+<section class="gallery" id="gallery">
+    <div class="container">
+        <div class="section-header fade-in-section">
+            <h2>The Property</h2>
+            <div class="divider"></div>
+            <p>Immerse yourself in luxury mountain living</p>
+        </div>
+        <div class="gallery-grid">
+            <!-- Exterior & Outdoor -->
+            <div class="gallery-item"><img src="Exteriorhome.jpg" alt="Exterior"></div>
+            <div class="gallery-item"><img src="ExteriorRiver.jpg" alt="Exterior River View"></div>
+            <div class="gallery-item"><img src="Patio%20River.jpeg" alt="Patio River View"></div>
+            <div class="gallery-item"><img src="River.jpeg" alt="Blue River"></div>
+            <div class="gallery-item"><img src="Riverview1.jpg" alt="River View"></div>
+            <div class="gallery-item"><img src="Deck1.jpg" alt="Deck"></div>
+            <div class="gallery-item"><img src="Deckview1.jpg" alt="Deck View"></div>
+            <div class="gallery-item"><img src="BreckSkiLift.jpeg" alt="Breckenridge Ski Lift"></div>
+            <!-- Entryway -->
+            <div class="gallery-item"><img src="Entryway.jpg" alt="Entryway"></div>
+            <div class="gallery-item"><img src="Entryway2.jpg" alt="Entryway"></div>
+            <!-- Living -->
+            <div class="gallery-item"><img src="Living2.jpg" alt="Living Room"></div>
+            <div class="gallery-item"><img src="Living3.jpg" alt="Living Room"></div>
+            <!-- Kitchen & Dining -->
+            <div class="gallery-item"><img src="Kitchen1.jpg" alt="Kitchen"></div>
+            <div class="gallery-item"><img src="Kitchen2.jpg" alt="Kitchen"></div>
+            <div class="gallery-item"><img src="Dining1.jpg" alt="Dining Area"></div>
+            <div class="gallery-item"><img src="Dining2.jpg" alt="Dining Area"></div>
+            <!-- Den & Office -->
+            <div class="gallery-item"><img src="Den1.jpg" alt="Den"></div>
+            <div class="gallery-item"><img src="Den2.jpg" alt="Den"></div>
+            <div class="gallery-item"><img src="Loftdesk.jpg" alt="Loft Desk"></div>
+            <div class="gallery-item"><img src="Office1.jpg" alt="Office"></div>
+            <div class="gallery-item"><img src="Office2.jpg" alt="Office"></div>
+            <!-- Master Suite -->
+            <div class="gallery-item"><img src="Master1.jpg" alt="Master Bedroom"></div>
+            <div class="gallery-item"><img src="Master2.jpg" alt="Master Bedroom"></div>
+            <div class="gallery-item"><img src="Master3.jpg" alt="Master Bedroom"></div>
+            <div class="gallery-item"><img src="Masterbath1.jpg" alt="Master Bath"></div>
+            <div class="gallery-item"><img src="Masterbath2.jpg" alt="Master Bath"></div>
+            <!-- Mini Primary Suite -->
+            <div class="gallery-item"><img src="MiniPrimary1.jpg" alt="Mini Primary Suite"></div>
+            <div class="gallery-item"><img src="Miniprimary2.jpg" alt="Mini Primary Suite"></div>
+            <div class="gallery-item"><img src="Miniprimarybath.jpg" alt="Mini Primary Bath"></div>
+            <div class="gallery-item"><img src="Miniprimarybath2.jpg" alt="Mini Primary Bath"></div>
+            <!-- Junior Suite -->
+            <div class="gallery-item"><img src="JuniorSuite1.jpg" alt="Junior Suite"></div>
+            <div class="gallery-item"><img src="Juniorsuite2.jpg" alt="Junior Suite"></div>
+            <div class="gallery-item"><img src="JuniorSuitebath.jpg" alt="Junior Suite Bath"></div>
+            <!-- Additional Rooms -->
+            <div class="gallery-item"><img src="Officebath.jpg" alt="Office Bath"></div>
+            <div class="gallery-item"><img src="Halfbath1.jpg" alt="Half Bath"></div>
+            <div class="gallery-item"><img src="Hotttub1.jpg" alt="Hot Tub"></div>
+            <div class="gallery-item"><img src="Hottub2.jpg" alt="Hot Tub"></div>
+            <div class="gallery-item"><img src="Laundry.jpg" alt="Laundry"></div>
+        </div>
+    </div>
+</section>
+
+<section class="amenities" id="amenities">
+    <div class="container">
+        <div class="section-header fade-in-section">
+            <h2>Refined Amenities</h2>
+            <div class="divider"></div>
+            <p>Every detail thoughtfully curated for your comfort</p>
+        </div>
+        <div class="amenities-grid fade-in-section">
+            <div class="amenity-card"><h3>Private Hot Tub</h3><div class="amenity-divider"></div><p>Unwind beneath the stars</p></div>
+            <div class="amenity-card"><h3>Gourmet Kitchen</h3><div class="amenity-divider"></div><p>Professional-grade appliances</p></div>
+            <div class="amenity-card"><h3>Gas Fireplace</h3><div class="amenity-divider"></div><p>Elegant warmth and ambiance</p></div>
+            <div class="amenity-card"><h3>High-Speed WiFi</h3><div class="amenity-divider"></div><p>Seamless connectivity</p></div>
+            <div class="amenity-card"><h3>Mountain Views</h3><div class="amenity-divider"></div><p>Panoramic Colorado scenery</p></div>
+            <div class="amenity-card"><h3>Private Parking</h3><div class="amenity-divider"></div><p>Convenient driveway access</p></div>
+            <div class="amenity-card"><h3>In-Unit Laundry</h3><div class="amenity-divider"></div><p>Full-size washer and dryer</p></div>
+            <div class="amenity-card"><h3>Self Check-In</h3><div class="amenity-divider"></div><p>Contactless arrival</p></div>
+        </div>
+    </div>
+</section>
+
+<section class="contact" id="contact">
+    <div class="container">
+        <div class="section-header">
+            <h2>Inquire About Your Stay</h2>
+            <div class="divider"></div>
+            <p>We welcome your questions and look forward to hosting your experience</p>
+        </div>
+        <div class="contact-content">
+            <form action="https://formsubmit.co/watersoundbreckenridge@gmail.com" method="POST">
+                <div class="form-group"><label>Name</label><input type="text" name="name" required></div>
+                <div class="form-group"><label>Email Address</label><input type="email" name="email" required></div>
+                <div class="form-group"><label>Message</label><textarea name="message" required></textarea></div>
+                <button type="submit" class="submit-btn">Send Inquiry</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <h3>Rivers Edge Breckenridge</h3>
+        <div class="footer-divider"></div>
+        <div class="social-links"><a href="https://www.instagram.com/blueriverluxbreck" target="_blank">Follow on Instagram @blueriverluxbreck</a></div>
+        <p>Breckenridge, Colorado</p>
+        <div class="footer-links">
+            <a href="https://www.airbnb.com/rooms/1286116063774289661" target="_blank">Airbnb</a>
+            <a href="https://www.vrbo.com/4581092" target="_blank">VRBO</a>
+        </div>
+        <p class="copyright">&copy; 2026 Rivers Edge Breckenridge. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+function animateTitle() {
+    const title = document.getElementById('heroTitle');
+    const text = 'RIVERSEDGE';
+    let delay = 200;
+    text.split('').forEach((char) => {
+        const letterSpan = document.createElement('span');
+        letterSpan.className = 'letter';
+        letterSpan.textContent = char;
+        letterSpan.style.animationDelay = delay + 'ms';
+        title.appendChild(letterSpan);
+        delay += 40;
+    });
+}
+
+function initSlideshow() {
+    const slides = document.querySelectorAll('.hero-slide');
+    const dots = document.querySelectorAll('.slide-dot');
+    const kbAnimations = [
+        'kb1 14s ease-in-out forwards',
+        'kb2 14s ease-in-out forwards',
+        'kb3 14s ease-in-out forwards',
+        'kb4 14s ease-in-out forwards',
+        'kb5 14s ease-in-out forwards'
+    ];
+    let current = 0;
+
+    function applyKenBurns(index) {
+        const img = slides[index].querySelector('img');
+        img.style.animation = 'none';
+        void img.offsetWidth;
+        img.style.animation = kbAnimations[index];
+    }
+
+    // Start first slide's Ken Burns
+    applyKenBurns(0);
+
+    setInterval(() => {
+        // Don't clear animation on outgoing slide — let it hold during fade-out
+        slides[current].classList.remove('active');
+        dots[current].classList.remove('active');
+        current = (current + 1) % slides.length;
+        slides[current].classList.add('active');
+        dots[current].classList.add('active');
+        applyKenBurns(current);
+    }, 7000);
+    dots.forEach((dot) => {
+        dot.addEventListener('click', () => {
+            slides[current].classList.remove('active');
+            dots[current].classList.remove('active');
+            current = parseInt(dot.dataset.index);
+            slides[current].classList.add('active');
+            dots[current].classList.add('active');
+            applyKenBurns(current);
+        });
+    });
+}
+
+function initTestimonials() {
+    const items = document.querySelectorAll('.hero-testimonial-item');
+    let current = 0;
+    setInterval(() => {
+        items[current].classList.remove('active');
+        current = (current + 1) % items.length;
+        items[current].classList.add('active');
+    }, 8000);
+}
+
+function initNav() {
+    const nav = document.getElementById('siteNav');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 80) {
+            nav.classList.add('scrolled');
+        } else {
+            nav.classList.remove('scrolled');
+        }
+    }, { passive: true });
+}
+
+function initScrollReveal() {
+    const sections = document.querySelectorAll('.fade-in-section');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15 });
+    sections.forEach(section => observer.observe(section));
+}
+
+async function loadAvailability() {
+    try {
+        const response = await fetch('availability.json');
+        const data = await response.json();
+        document.getElementById('season-title').textContent = data.season.title;
+        document.getElementById('season-subtitle').textContent = data.season.subtitle;
+        const container = document.getElementById('date-boxes');
+        container.innerHTML = '';
+        data.availability.forEach(block => {
+            const box = document.createElement('div');
+            box.className = 'date-box';
+            box.innerHTML = '<h3>' + block.title + '</h3><p class="dates">' + block.dates + '</p><p class="description">' + block.description + '</p><span class="discount-badge">Limited Availability</span>';
+            container.appendChild(box);
+        });
+    } catch (error) {
+        console.error('Error loading availability:', error);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    animateTitle();
+    initSlideshow();
+    initTestimonials();
+    initNav();
+    initScrollReveal();
+    loadAvailability();
+});
+</script>
+
+</body>
+</html>
