@@ -22,20 +22,67 @@ def fetch_ical(url):
         return response.read().decode('utf-8')
 
 
+def extract_date(event_text, field):
+    """Extract a date from an iCal field, handling all common formats:
+       DTSTART;VALUE=DATE:20260313
+       DTSTART:20260313
+       DTSTART:20260313T000000Z
+       DTSTART;TZID=America/Denver:20260313T150000
+    """
+    # Pattern 1: VALUE=DATE format
+    match = re.search(rf'{field};VALUE=DATE:(\d{{8}})', event_text)
+    if match:
+        return datetime.strptime(match.group(1), '%Y%m%d').date()
+
+    # Pattern 2: With TZID
+    match = re.search(rf'{field};TZID=[^:]+:(\d{{8}})', event_text)
+    if match:
+        return datetime.strptime(match.group(1), '%Y%m%d').date()
+
+    # Pattern 3: Plain datetime or date (with or without time component)
+    match = re.search(rf'{field}:(\d{{8}})', event_text)
+    if match:
+        return datetime.strptime(match.group(1), '%Y%m%d').date()
+
+    return None
+
+
 def parse_booked_dates(ical_text):
     booked = []
+    skipped = 0
     events = ical_text.split('BEGIN:VEVENT')
-    for event in events[1:]:
-        dtstart = re.search(r'DTSTART;VALUE=DATE:(\d{8})', event)
-        if not dtstart:
-            dtstart = re.search(r'DTSTART:(\d{8})', event)
-        dtend = re.search(r'DTEND;VALUE=DATE:(\d{8})', event)
-        if not dtend:
-            dtend = re.search(r'DTEND:(\d{8})', event)
-        if dtstart and dtend:
-            start = datetime.strptime(dtstart.group(1), '%Y%m%d').date()
-            end = datetime.strptime(dtend.group(1), '%Y%m%d').date()
+
+    print(f"  Raw VEVENT blocks found: {len(events) - 1}")
+
+    for i, event in enumerate(events[1:], 1):
+        start = extract_date(event, 'DTSTART')
+        end = extract_date(event, 'DTEND')
+
+        # If no DTEND, check for DURATION
+        if start and not end:
+            dur_match = re.search(r'DURATION:P(\d+)D', event)
+            if dur_match:
+                end = start + timedelta(days=int(dur_match.group(1)))
+            else:
+                # Single-day block: assume 1 night
+                end = start + timedelta(days=1)
+
+        # Extract summary for debug logging
+        summary_match = re.search(r'SUMMARY:(.*)', event)
+        summary = summary_match.group(1).strip() if summary_match else '(no summary)'
+
+        if start and end:
             booked.append((start, end))
+            print(f"  Event {i}: {start} to {end} — {summary}")
+        else:
+            skipped += 1
+            # Print the raw event for debugging
+            preview = event.strip()[:200].replace('\n', ' | ')
+            print(f"  Event {i} SKIPPED (no parseable dates): {preview}")
+
+    if skipped:
+        print(f"  WARNING: {skipped} events could not be parsed")
+
     booked.sort(key=lambda x: x[0])
     return booked
 
@@ -59,6 +106,10 @@ def find_available_windows(booked_dates):
         else:
             merged.append((start, end))
 
+    print(f"\n  Merged blocked ranges:")
+    for s, e in merged:
+        print(f"    BLOCKED: {s} to {e} ({(e - s).days} nights)")
+
     available = []
 
     if merged[0][0] > today + timedelta(days=1):
@@ -74,6 +125,11 @@ def find_available_windows(booked_dates):
         available.append((merged[-1][1], end_window))
 
     available = [(s, e) for s, e in available if (e - s).days >= MIN_NIGHTS]
+
+    print(f"\n  Available windows:")
+    for s, e in available:
+        print(f"    OPEN: {s} to {e} ({(e - s).days} nights)")
+
     return available
 
 
@@ -144,14 +200,15 @@ def main():
 
     print("Fetching iCal from Airbnb...")
     ical_text = fetch_ical(ICAL_URL)
+    print(f"Received {len(ical_text)} bytes of iCal data\n")
 
     print("Parsing booked dates...")
     booked = parse_booked_dates(ical_text)
-    print(f"Found {len(booked)} booking entries")
+    print(f"\nTotal parsed: {len(booked)} booking entries")
 
-    print("Finding available windows...")
+    print("\nFinding available windows...")
     available = find_available_windows(booked)
-    print(f"Found {len(available)} available windows")
+    print(f"\nTotal available: {len(available)} windows")
 
     blocks = []
     for start, end in available[:3]:
@@ -177,7 +234,8 @@ def main():
     with open(OUTPUT_FILE, 'w') as f:
         json.dump(data, f, indent=2)
 
-    print(f"Updated {OUTPUT_FILE} with {len(blocks)} availability windows")
+    print(f"\nFinal output ({OUTPUT_FILE}):")
+    print(json.dumps(data, indent=2))
 
 
 if __name__ == '__main__':
