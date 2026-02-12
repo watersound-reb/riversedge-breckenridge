@@ -1,28 +1,28 @@
 {
-  "last_updated": "2026-02-08T00:00:00",
+  "last_updated": "2026-02-12T00:00:00",
   "season": {
     "title": "Ski Season Availability",
-    "subtitle": "Exclusive Last-Minute Openings",
+    "subtitle": "Book Your Mountain Getaway",
     "theme": "ski"
   },
   "availability": [
     {
-      "title": "Early March",
-      "dates": "March 1–14, 2026",
-      "description": "Prime ski season with exceptional powder conditions and mountain views",
-      "nights": 13
+      "title": "February Week",
+      "dates": "February 21\u201324, 2026",
+      "description": "Prime ski season with exceptional powder conditions and stunning mountain views",
+      "nights": 3
     },
     {
-      "title": "Late March",
-      "dates": "March 22–28, 2026",
-      "description": "Spring skiing with sunny days and perfect outdoor hot tub weather",
+      "title": "March Week",
+      "dates": "March 2\u20137, 2026",
+      "description": "Perfect powder days and cozy evenings by the fireplace",
+      "nights": 5
+    },
+    {
+      "title": "March Week",
+      "dates": "March 13\u201320, 2026",
+      "description": "World-class skiing with easy access to all five peaks",
       "nights": 7
-    },
-    {
-      "title": "April Openings",
-      "dates": "April 4–30, 2026",
-      "description": "Extended season skiing plus early access to summer mountain activities",
-      "nights": 26
     }
   ],
   "meta": {
