@@ -1,0 +1,34 @@
+name: Update Availability
+
+on:
+  schedule:
+    - cron: '0 12 * * *'
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Update availability
+        env:
+          AIRBNB_ICAL_URL: ${{ secrets.AIRBNB_ICAL_URL }}
+          VRBO_ICAL_URL: ${{ secrets.VRBO_ICAL_URL }}
+        run: python update_availability.py
+
+      - name: Commit changes
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add availability.json
+          git diff --staged --quiet || git commit -m "Update availability data"
+          git push
