@@ -22,6 +22,7 @@ jobs:
       - name: Update availability
         env:
           AIRBNB_ICAL_URL: ${{ secrets.AIRBNB_ICAL_URL }}
+          VRBO_ICAL_URL: ${{ secrets.VRBO_ICAL_URL }}
         run: python update_availability.py
 
       - name: Commit changes
