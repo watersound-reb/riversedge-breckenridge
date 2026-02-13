@@ -498,8 +498,6 @@
         }
         .discount-badge {
             display: inline-block;
-            background: var(--primary-gold);
-            color: var(--dark-navy);
             padding: 10px 24px;
             font-weight: 500;
             font-size: 0.9rem;
@@ -507,6 +505,14 @@
             text-transform: uppercase;
             margin-top: 1.5rem;
             align-self: center;
+        }
+        .badge-limited {
+            background: var(--primary-gold);
+            color: var(--dark-navy);
+        }
+        .badge-good {
+            background: #5A8F7B;
+            color: #fff;
         }
 
         /* SECTIONS */
@@ -1174,7 +1180,10 @@ async function loadAvailability() {
         data.availability.forEach(block => {
             const box = document.createElement('div');
             box.className = 'date-box';
-            box.innerHTML = '<h3>' + block.title + '</h3><p class="dates">' + block.dates + '</p><p class="description">' + block.description + '</p><span class="discount-badge">Limited Availability</span>';
+            const isGood = block.nights > 7;
+            const badgeClass = isGood ? 'badge-good' : 'badge-limited';
+            const badgeText = isGood ? 'Good Availability' : 'Limited Availability';
+            box.innerHTML = '<h3>' + block.title + '</h3><p class="dates">' + block.dates + '</p><p class="description">' + block.description + '</p><span class="discount-badge ' + badgeClass + '">' + badgeText + '</span>';
             container.appendChild(box);
         });
     } catch (error) {
