@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Fetches Airbnb iCal calendar and generates availability.json
+Fetches Airbnb AND VRBO iCal calendars and generates availability.json
 for the Rivers Edge Breckenridge website.
 """
 
@@ -10,7 +10,8 @@ import re
 import urllib.request
 from datetime import datetime, timedelta, date
 
-ICAL_URL = os.environ.get('AIRBNB_ICAL_URL', '')
+AIRBNB_ICAL_URL = os.environ.get('AIRBNB_ICAL_URL', '')
+VRBO_ICAL_URL = os.environ.get('VRBO_ICAL_URL', '')
 OUTPUT_FILE = 'availability.json'
 LOOKAHEAD_DAYS = 180
 MIN_NIGHTS = 2
@@ -23,23 +24,15 @@ def fetch_ical(url):
 
 
 def extract_date(event_text, field):
-    """Extract a date from an iCal field, handling all common formats:
-       DTSTART;VALUE=DATE:20260313
-       DTSTART:20260313
-       DTSTART:20260313T000000Z
-       DTSTART;TZID=America/Denver:20260313T150000
-    """
-    # Pattern 1: VALUE=DATE format
+    """Extract a date from an iCal field, handling all common formats."""
     match = re.search(rf'{field};VALUE=DATE:(\d{{8}})', event_text)
     if match:
         return datetime.strptime(match.group(1), '%Y%m%d').date()
 
-    # Pattern 2: With TZID
     match = re.search(rf'{field};TZID=[^:]+:(\d{{8}})', event_text)
     if match:
         return datetime.strptime(match.group(1), '%Y%m%d').date()
 
-    # Pattern 3: Plain datetime or date (with or without time component)
     match = re.search(rf'{field}:(\d{{8}})', event_text)
     if match:
         return datetime.strptime(match.group(1), '%Y%m%d').date()
@@ -47,7 +40,7 @@ def extract_date(event_text, field):
     return None
 
 
-def parse_booked_dates(ical_text):
+def parse_booked_dates(ical_text, source_name):
     booked = []
     skipped = 0
     events = ical_text.split('BEGIN:VEVENT')
@@ -58,32 +51,27 @@ def parse_booked_dates(ical_text):
         start = extract_date(event, 'DTSTART')
         end = extract_date(event, 'DTEND')
 
-        # If no DTEND, check for DURATION
         if start and not end:
             dur_match = re.search(r'DURATION:P(\d+)D', event)
             if dur_match:
                 end = start + timedelta(days=int(dur_match.group(1)))
             else:
-                # Single-day block: assume 1 night
                 end = start + timedelta(days=1)
 
-        # Extract summary for debug logging
         summary_match = re.search(r'SUMMARY:(.*)', event)
         summary = summary_match.group(1).strip() if summary_match else '(no summary)'
 
         if start and end:
             booked.append((start, end))
-            print(f"  Event {i}: {start} to {end} — {summary}")
+            print(f"  [{source_name}] Event {i}: {start} to {end} — {summary}")
         else:
             skipped += 1
-            # Print the raw event for debugging
             preview = event.strip()[:200].replace('\n', ' | ')
-            print(f"  Event {i} SKIPPED (no parseable dates): {preview}")
+            print(f"  [{source_name}] Event {i} SKIPPED: {preview}")
 
     if skipped:
-        print(f"  WARNING: {skipped} events could not be parsed")
+        print(f"  [{source_name}] WARNING: {skipped} events could not be parsed")
 
-    booked.sort(key=lambda x: x[0])
     return booked
 
 
@@ -96,6 +84,8 @@ def find_available_windows(booked_dates):
         if end > today and start < end_window:
             relevant.append((max(start, today), min(end, end_window)))
 
+    relevant.sort(key=lambda x: x[0])
+
     if not relevant:
         return [(today + timedelta(days=1), end_window)]
 
@@ -106,7 +96,7 @@ def find_available_windows(booked_dates):
         else:
             merged.append((start, end))
 
-    print(f"\n  Merged blocked ranges:")
+    print(f"\n  Merged blocked ranges (both calendars combined):")
     for s, e in merged:
         print(f"    BLOCKED: {s} to {e} ({(e - s).days} nights)")
 
@@ -194,20 +184,38 @@ def format_title(start, end):
 
 
 def main():
-    if not ICAL_URL:
+    if not AIRBNB_ICAL_URL:
         print("Error: AIRBNB_ICAL_URL environment variable not set")
         return
 
+    # Fetch Airbnb calendar
+    print("=== AIRBNB CALENDAR ===")
     print("Fetching iCal from Airbnb...")
-    ical_text = fetch_ical(ICAL_URL)
-    print(f"Received {len(ical_text)} bytes of iCal data\n")
+    airbnb_text = fetch_ical(AIRBNB_ICAL_URL)
+    print(f"Received {len(airbnb_text)} bytes\n")
+    print("Parsing Airbnb bookings...")
+    all_booked = parse_booked_dates(airbnb_text, "Airbnb")
+    print(f"Airbnb entries: {len(all_booked)}")
 
-    print("Parsing booked dates...")
-    booked = parse_booked_dates(ical_text)
-    print(f"\nTotal parsed: {len(booked)} booking entries")
+    # Fetch VRBO calendar if available
+    if VRBO_ICAL_URL:
+        print(f"\n=== VRBO CALENDAR ===")
+        print("Fetching iCal from VRBO...")
+        vrbo_text = fetch_ical(VRBO_ICAL_URL)
+        print(f"Received {len(vrbo_text)} bytes\n")
+        print("Parsing VRBO bookings...")
+        vrbo_booked = parse_booked_dates(vrbo_text, "VRBO")
+        print(f"VRBO entries: {len(vrbo_booked)}")
+        all_booked.extend(vrbo_booked)
+        print(f"\nCombined total: {len(all_booked)} entries from both calendars")
+    else:
+        print("\nVRBO_ICAL_URL not set — using Airbnb calendar only")
 
-    print("\nFinding available windows...")
-    available = find_available_windows(booked)
+    # Sort all bookings by start date
+    all_booked.sort(key=lambda x: x[0])
+
+    print(f"\n=== FINDING AVAILABILITY ===")
+    available = find_available_windows(all_booked)
     print(f"\nTotal available: {len(available)} windows")
 
     blocks = []
@@ -234,7 +242,7 @@ def main():
     with open(OUTPUT_FILE, 'w') as f:
         json.dump(data, f, indent=2)
 
-    print(f"\nFinal output ({OUTPUT_FILE}):")
+    print(f"\n=== FINAL OUTPUT ===")
     print(json.dumps(data, indent=2))
 
 
