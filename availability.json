@@ -1,17 +1,11 @@
 {
-  "last_updated": "2026-02-21T00:00:00",
+  "last_updated": "2026-02-22T00:00:00",
   "season": {
     "title": "Ski Season Availability",
     "subtitle": "Book Your Mountain Getaway",
     "theme": "ski"
   },
   "availability": [
-    {
-      "title": "February Week",
-      "dates": "February 22\u201324, 2026",
-      "description": "World-class skiing with easy access to all five peaks",
-      "nights": 2
-    },
     {
       "title": "March Week",
       "dates": "March 2\u20137, 2026",
@@ -23,6 +17,12 @@
       "dates": "March 21 \u2013 June 1, 2026",
       "description": "Prime ski season with exceptional powder conditions and stunning mountain views",
       "nights": 72
+    },
+    {
+      "title": "Late June",
+      "dates": "June 27 \u2013 July 12, 2026",
+      "description": "Hiking, biking, and river activities in the Rocky Mountains",
+      "nights": 15
     }
   ],
   "meta": {
