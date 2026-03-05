@@ -1,17 +1,11 @@
 {
-  "last_updated": "2026-03-04T00:00:00",
+  "last_updated": "2026-03-05T00:00:00",
   "season": {
     "title": "Ski Season Availability",
     "subtitle": "Book Your Mountain Getaway",
     "theme": "ski"
   },
   "availability": [
-    {
-      "title": "March Week",
-      "dates": "March 5\u20137, 2026",
-      "description": "Perfect powder days and cozy evenings by the fireplace",
-      "nights": 2
-    },
     {
       "title": "Late March",
       "dates": "March 21 \u2013 June 1, 2026",
@@ -23,6 +17,12 @@
       "dates": "June 27 \u2013 July 12, 2026",
       "description": "Hiking, biking, and river activities in the Rocky Mountains",
       "nights": 15
+    },
+    {
+      "title": "Early August",
+      "dates": "August 2 \u2013 September 1, 2026",
+      "description": "Perfect weather for outdoor adventures and exploring Main Street",
+      "nights": 30
     }
   ],
   "meta": {
