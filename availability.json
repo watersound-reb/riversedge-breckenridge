@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-03-14T00:00:00",
+  "last_updated": "2026-03-15T00:00:00",
   "season": {
     "title": "Ski Season Availability",
     "subtitle": "Book Your Mountain Getaway",
@@ -20,9 +20,9 @@
     },
     {
       "title": "Early August",
-      "dates": "August 2 \u2013 September 10, 2026",
+      "dates": "August 2 \u2013 September 11, 2026",
       "description": "Perfect weather for outdoor adventures and exploring Main Street",
-      "nights": 39
+      "nights": 40
     }
   ],
   "meta": {
