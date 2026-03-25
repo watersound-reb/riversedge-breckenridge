@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-03-24T00:00:00",
+  "last_updated": "2026-03-25T00:00:00",
   "season": {
     "title": "Ski Season Availability",
     "subtitle": "Book Your Mountain Getaway",
@@ -8,9 +8,9 @@
   "availability": [
     {
       "title": "Late March",
-      "dates": "March 25 \u2013 June 1, 2026",
-      "description": "World-class skiing with easy access to all five peaks",
-      "nights": 68
+      "dates": "March 26 \u2013 June 1, 2026",
+      "description": "Perfect powder days and cozy evenings by the fireplace",
+      "nights": 67
     },
     {
       "title": "Late June",
@@ -20,9 +20,9 @@
     },
     {
       "title": "Early August",
-      "dates": "August 2 \u2013 September 20, 2026",
+      "dates": "August 2 \u2013 September 21, 2026",
       "description": "Perfect weather for outdoor adventures and exploring Main Street",
-      "nights": 49
+      "nights": 50
     }
   ],
   "meta": {
