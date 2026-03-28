@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-03-27T00:00:00",
+  "last_updated": "2026-03-28T00:00:00",
   "season": {
     "title": "Ski Season Availability",
     "subtitle": "Book Your Mountain Getaway",
@@ -7,22 +7,22 @@
   },
   "availability": [
     {
-      "title": "Late March",
-      "dates": "March 28 \u2013 June 1, 2026",
-      "description": "World-class skiing with easy access to all five peaks",
-      "nights": 65
+      "title": "March Week",
+      "dates": "March 29 \u2013 April 4, 2026",
+      "description": "Perfect powder days and cozy evenings by the fireplace",
+      "nights": 6
+    },
+    {
+      "title": "Early May",
+      "dates": "May 1 \u2013 June 1, 2026",
+      "description": "Longer days, sunshine, and spring snow conditions",
+      "nights": 31
     },
     {
       "title": "Late June",
       "dates": "June 27 \u2013 July 12, 2026",
       "description": "Hiking, biking, and river activities in the Rocky Mountains",
       "nights": 15
-    },
-    {
-      "title": "Early August",
-      "dates": "August 2 \u2013 September 23, 2026",
-      "description": "Perfect weather for outdoor adventures and exploring Main Street",
-      "nights": 52
     }
   ],
   "meta": {
