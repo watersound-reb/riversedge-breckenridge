@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-03-28T00:00:00",
+  "last_updated": "2026-03-29T00:00:00",
   "season": {
     "title": "Ski Season Availability",
     "subtitle": "Book Your Mountain Getaway",
@@ -8,9 +8,9 @@
   "availability": [
     {
       "title": "March Week",
-      "dates": "March 29 \u2013 April 4, 2026",
-      "description": "Perfect powder days and cozy evenings by the fireplace",
-      "nights": 6
+      "dates": "March 30 \u2013 April 4, 2026",
+      "description": "Prime ski season with exceptional powder conditions and stunning mountain views",
+      "nights": 5
     },
     {
       "title": "Early May",
