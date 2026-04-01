@@ -1,16 +1,16 @@
 {
-  "last_updated": "2026-03-31T00:00:00",
+  "last_updated": "2026-04-01T00:00:00",
   "season": {
-    "title": "Ski Season Availability",
-    "subtitle": "Book Your Mountain Getaway",
-    "theme": "ski"
+    "title": "Spring Season Availability",
+    "subtitle": "Enjoy the Mountain Transition",
+    "theme": "spring"
   },
   "availability": [
     {
       "title": "April Week",
-      "dates": "April 1\u20134, 2026",
-      "description": "Longer days, sunshine, and spring snow conditions",
-      "nights": 3
+      "dates": "April 2\u20134, 2026",
+      "description": "The best of both seasons as the mountain transitions",
+      "nights": 2
     },
     {
       "title": "Early May",
