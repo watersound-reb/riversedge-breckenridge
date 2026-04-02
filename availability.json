@@ -1,17 +1,11 @@
 {
-  "last_updated": "2026-04-01T00:00:00",
+  "last_updated": "2026-04-02T00:00:00",
   "season": {
     "title": "Spring Season Availability",
     "subtitle": "Enjoy the Mountain Transition",
     "theme": "spring"
   },
   "availability": [
-    {
-      "title": "April Week",
-      "dates": "April 2\u20134, 2026",
-      "description": "The best of both seasons as the mountain transitions",
-      "nights": 2
-    },
     {
       "title": "Early May",
       "dates": "May 1 \u2013 June 1, 2026",
@@ -23,6 +17,12 @@
       "dates": "June 27 \u2013 July 12, 2026",
       "description": "Hiking, biking, and river activities in the Rocky Mountains",
       "nights": 15
+    },
+    {
+      "title": "Early August",
+      "dates": "August 2 \u2013 September 29, 2026",
+      "description": "Perfect weather for outdoor adventures and exploring Main Street",
+      "nights": 58
     }
   ],
   "meta": {
