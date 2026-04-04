@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-04-03T00:00:00",
+  "last_updated": "2026-04-04T00:00:00",
   "season": {
     "title": "Spring Season Availability",
     "subtitle": "Enjoy the Mountain Transition",
@@ -20,9 +20,9 @@
     },
     {
       "title": "Early August",
-      "dates": "August 2 \u2013 September 30, 2026",
+      "dates": "August 2 \u2013 October 1, 2026",
       "description": "Perfect weather for outdoor adventures and exploring Main Street",
-      "nights": 59
+      "nights": 60
     }
   ],
   "meta": {
