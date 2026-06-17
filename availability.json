@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-16T00:00:00",
+  "last_updated": "2026-06-17T00:00:00",
   "season": {
     "title": "Summer Season Availability",
     "subtitle": "Alpine Adventures Await",
@@ -14,9 +14,9 @@
     },
     {
       "title": "Early December",
-      "dates": "December 2\u201313, 2026",
+      "dates": "December 2\u201314, 2026",
       "description": "Perfect powder days and cozy evenings by the fireplace",
-      "nights": 11
+      "nights": 12
     }
   ],
   "meta": {
