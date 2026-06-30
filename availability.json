@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-29T00:00:00",
+  "last_updated": "2026-06-30T00:00:00",
   "season": {
     "title": "Summer Season Availability",
     "subtitle": "Alpine Adventures Await",
@@ -7,16 +7,16 @@
   },
   "availability": [
     {
-      "title": "Late June",
-      "dates": "June 30 \u2013 July 12, 2026",
-      "description": "Hiking, biking, and river activities in the Rocky Mountains",
-      "nights": 12
+      "title": "Early July",
+      "dates": "July 1\u201312, 2026",
+      "description": "Summer festivals, wildflowers, and endless mountain activities",
+      "nights": 11
     },
     {
       "title": "Early December",
-      "dates": "December 2\u201326, 2026",
+      "dates": "December 2\u201327, 2026",
       "description": "Perfect powder days and cozy evenings by the fireplace",
-      "nights": 24
+      "nights": 25
     }
   ],
   "meta": {
