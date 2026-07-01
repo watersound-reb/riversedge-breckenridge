@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-30T00:00:00",
+  "last_updated": "2026-07-01T00:00:00",
   "season": {
     "title": "Summer Season Availability",
     "subtitle": "Alpine Adventures Await",
@@ -7,16 +7,16 @@
   },
   "availability": [
     {
-      "title": "Early July",
-      "dates": "July 1\u201312, 2026",
-      "description": "Summer festivals, wildflowers, and endless mountain activities",
-      "nights": 11
+      "title": "July Week",
+      "dates": "July 2\u201312, 2026",
+      "description": "Perfect weather for outdoor adventures and exploring Main Street",
+      "nights": 10
     },
     {
       "title": "Early December",
-      "dates": "December 2\u201327, 2026",
+      "dates": "December 2\u201328, 2026",
       "description": "Perfect powder days and cozy evenings by the fireplace",
-      "nights": 25
+      "nights": 26
     }
   ],
   "meta": {
