@@ -1,17 +1,11 @@
 {
-  "last_updated": "2026-07-09T00:00:00",
+  "last_updated": "2026-07-10T00:00:00",
   "season": {
     "title": "Summer Season Availability",
     "subtitle": "Alpine Adventures Await",
     "theme": "summer"
   },
   "availability": [
-    {
-      "title": "July Week",
-      "dates": "July 10\u201312, 2026",
-      "description": "Summer festivals, wildflowers, and endless mountain activities",
-      "nights": 2
-    },
     {
       "title": "Early December",
       "dates": "December 2, 2026 \u2013 January 2, 2027",
