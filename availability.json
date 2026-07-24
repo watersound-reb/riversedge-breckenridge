@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-07-23T00:00:00",
+  "last_updated": "2026-07-24T00:00:00",
   "season": {
     "title": "Summer Season Availability",
     "subtitle": "Alpine Adventures Await",
@@ -11,6 +11,12 @@
       "dates": "December 2, 2026 \u2013 January 2, 2027",
       "description": "Perfect powder days and cozy evenings by the fireplace",
       "nights": 31
+    },
+    {
+      "title": "January Week",
+      "dates": "January 18\u201320, 2027",
+      "description": "Prime ski season with exceptional powder conditions and stunning mountain views",
+      "nights": 2
     }
   ],
   "meta": {
