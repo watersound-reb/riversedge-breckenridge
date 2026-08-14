@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-08-13T00:00:00",
+  "last_updated": "2026-08-14T00:00:00",
   "season": {
     "title": "Summer Season Availability",
     "subtitle": "Alpine Adventures Await",
@@ -14,9 +14,9 @@
     },
     {
       "title": "Late January",
-      "dates": "January 18 \u2013 February 9, 2027",
+      "dates": "January 18 \u2013 February 10, 2027",
       "description": "Prime ski season with exceptional powder conditions and stunning mountain views",
-      "nights": 22
+      "nights": 23
     }
   ],
   "meta": {
