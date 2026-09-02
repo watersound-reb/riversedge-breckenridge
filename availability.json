@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-09-01T00:00:00",
+  "last_updated": "2026-09-02T00:00:00",
   "season": {
     "title": "Fall Season Availability",
     "subtitle": "Experience Peak Foliage",
@@ -14,9 +14,9 @@
     },
     {
       "title": "Late January",
-      "dates": "January 18 \u2013 February 28, 2027",
+      "dates": "January 18 \u2013 March 1, 2027",
       "description": "Prime ski season with exceptional powder conditions and stunning mountain views",
-      "nights": 41
+      "nights": 42
     }
   ],
   "meta": {
