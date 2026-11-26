@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-11-25T00:00:00",
+  "last_updated": "2026-11-26T00:00:00",
   "season": {
     "title": "Fall Season Availability",
     "subtitle": "Experience Peak Foliage",
@@ -17,6 +17,12 @@
       "dates": "January 18 \u2013 March 1, 2027",
       "description": "Prime ski season with exceptional powder conditions and stunning mountain views",
       "nights": 42
+    },
+    {
+      "title": "May Week",
+      "dates": "May 23\u201325, 2027",
+      "description": "The best of both seasons as the mountain transitions",
+      "nights": 2
     }
   ],
   "meta": {
